@@ -6,21 +6,40 @@ services:
     ports:
       - 8080:80
     environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: ${DB_PASS:?}
+      WORDPRESS_DB_NAME: wpdb
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - curl -sf http://localhost/wp-json/
+      start_interval: 1s
+      start_period: 420s
     volumes:
       - wordpress:/var/www/html
 
-  db:
+  mysql:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ${DB_PASS:?}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${DB_ROOT_PASS:?}
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - mysqladmin --user=admin --password=${DB_PASS:?} ping | grep -cm1 'mysqld is alive'
+      start_interval: 1s
+      start_period: 420s
     volumes:
       - db:/var/lib/mysql
 
