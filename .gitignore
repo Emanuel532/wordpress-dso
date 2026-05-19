@@ -1,3 +1,7 @@
 *
 !compose.yaml
 !.gitignore
+
+!wordpress/
+wordpress/*
+!wordpress/*.php
