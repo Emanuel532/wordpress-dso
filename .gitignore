@@ -2,6 +2,10 @@
 !compose.yaml
 !.gitignore
 
+!.github/
+!.github/workflows/
+!.github/workflows/*.yaml
+
 !wordpress/
 wordpress/*
 !wordpress/*.php
