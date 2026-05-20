@@ -1,0 +1,121 @@
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+                  WordPress Security Scanner
+                         Version 4.0.0
+                    An Automattic endeavor
+                    https://automattic.com
+_______________________________________________________________
+
+[i] Updating the Database ...
+[i] Update completed.
+
+[+] URL: http://wordpress/ [172.18.0.3]
+[+] Started: Tue May 19 20:11:36 2026
+[+] Command Line: wpscan wpscan --url=http://wordpress 
+ --enumerate u,vp,vt 
+ --clear-cache 
+ --api-token [REDACTED] --output /reports/wpscan_report.txt
+[+] Hostname: b196f381d47a
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Apache/2.4.67 (Debian)
+ |  - X-Powered-By: PHP/8.3.31
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://wordpress/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] WordPress readme found: http://wordpress/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://wordpress/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 6.9.4 identified (Latest, released on 2026-03-11).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://wordpress/?feed=rss2, <generator>https://wordpress.org/?v=6.9.4</generator>
+ | Confirmed By: Rss Generator (Passive Detection)
+ |  - http://wordpress/?feed=comments-rss2, <generator>https://wordpress.org/?v=6.9.4</generator>
+
+[+] WordPress theme in use: twentytwentyfive
+ | Location: http://wordpress/wp-content/themes/twentytwentyfive/
+ | Latest Version: 1.4 (up to date)
+ | Last Updated: 2025-12-03 12:00am GMT (5 months ago, per WordPress.org)
+ | Active Installs: 1,000,000 (per WordPress.org)
+ | Readme: http://wordpress/wp-content/themes/twentytwentyfive/readme.txt
+ | Style URL: http://wordpress/wp-content/themes/twentytwentyfive/style.css
+ | Style Name: Twenty Twenty-Five
+ | Style URI: https://wordpress.org/themes/twentytwentyfive/
+ | Description: Twenty Twenty-Five emphasizes simplicity and adaptability. It offers flexible design options, suppor...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 1.4 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://wordpress/wp-content/themes/twentytwentyfive/style.css, Match: 'Version: 1.4'
+
+
+[+] akismet
+ | Location: http://wordpress/wp-content/plugins/akismet/
+ | Latest Version: 5.7
+ | Last Updated: 2026-04-23 10:34pm GMT (25 days ago, per WordPress.org)
+ | Active Installs: 6,000,000 (per WordPress.org)
+ |
+ | Found By: Known Locations (Aggressive Detection)
+ |  - http://wordpress/wp-content/plugins/akismet/, status: 403
+ |
+ | [!] 1 vulnerability identified:
+ |
+ | [!] Title: Akismet 2.5.0-3.1.4 - Unauthenticated Stored Cross-Site Scripting (XSS)
+ |     UUID: 1a2f3094-5970-4251-9ed0-ec595a0cd26c
+ |     Fixed in: 3.1.5
+ |     References:
+ |      - https://wpscan.com/vulnerability/1a2f3094-5970-4251-9ed0-ec595a0cd26c
+ |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-9357
+ |      - http://blog.akismet.com/2015/10/13/akismet-3-1-5-wordpress/
+ |      - https://blog.sucuri.net/2015/10/security-advisory-stored-xss-in-akismet-wordpress-plugin.html
+ |
+ | The version could not be determined.
+[i] 1 plugin(s) Identified.
+[i] No themes Found.
+
+[+] admin
+ | Found By: Rss Generator (Passive Detection)
+[i] 1 user(s) Identified.
+[+] WPScan DB API OK
+ | Plan: free
+ | Requests Done (during the scan): 3
+ | Requests Remaining: 5
+[+] Finished: Tue May 19 20:17:35 2026
+[+] Requests Done: 16071
+[+] Cached Requests: 13
+[+] Most response codes received: 200: 16043, 301: 12, 404: 9, 403: 6, 302: 1
+[+] Data Sent: 4.155 MB
+[+] Data Received: 526.048 MB
+[+] Memory used: 412.637 MB
+[+] Elapsed time: 00:05:59

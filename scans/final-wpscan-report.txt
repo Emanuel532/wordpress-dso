@@ -1,0 +1,77 @@
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+                  WordPress Security Scanner
+                         Version 4.0.0
+                    An Automattic endeavor
+                    https://automattic.com
+_______________________________________________________________
+
+[i] Updating the Database ...
+[i] Update completed.
+
+[+] URL: http://wordpress/ [172.18.0.3]
+[+] Started: Wed May 20 10:39:12 2026
+[+] Command Line: wpscan wpscan --url=http://wordpress 
+ --enumerate u,vp,vt 
+ --clear-cache 
+ --api-token [REDACTED] 
+ --output /reports/wpscan_report.txt
+[+] Hostname: 0d8e08c8186b
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: Server: Apache
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] WordPress version 6.9.4 identified (Latest, released on 2026-03-11).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://wordpress/?feed=rss2, <generator>https://wordpress.org/?v=6.9.4</generator>
+ | Confirmed By: Rss Generator (Passive Detection)
+ |  - http://wordpress/?feed=comments-rss2, <generator>https://wordpress.org/?v=6.9.4</generator>
+
+[+] WordPress theme in use: twentytwentyfive
+ | Location: http://wordpress/wp-content/themes/twentytwentyfive/
+ | Latest Version: 1.4 (up to date)
+ | Last Updated: 2025-12-03 12:00am GMT (5 months ago, per WordPress.org)
+ | Active Installs: 1,000,000 (per WordPress.org)
+ | Readme: http://wordpress/wp-content/themes/twentytwentyfive/readme.txt
+ | Style URL: http://wordpress/wp-content/themes/twentytwentyfive/style.css
+ | Style Name: Twenty Twenty-Five
+ | Style URI: https://wordpress.org/themes/twentytwentyfive/
+ | Description: Twenty Twenty-Five emphasizes simplicity and adaptability. It offers flexible design options, suppor...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 1.4 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://wordpress/wp-content/themes/twentytwentyfive/style.css, Match: 'Version: 1.4'
+
+[i] No plugins Found.
+[i] No themes Found.
+
+[+] admin
+ | Found By: Rss Generator (Passive Detection)
+[i] 1 user(s) Identified.
+[+] WPScan DB API OK
+ | Plan: free
+ | Requests Done (during the scan): 2
+ | Requests Remaining: 19
+[+] Finished: Wed May 20 10:45:33 2026
+[+] Requests Done: 16069
+[+] Cached Requests: 11
+[+] Most response codes received: 200: 16039, 301: 16, 404: 9, 403: 4, 302: 1
+[+] Data Sent: 4.155 MB
+[+] Data Received: 525.432 MB
+[+] Memory used: 403.699 MB
+[+] Elapsed time: 00:06:21

@@ -1,0 +1,17 @@
+Final report for the DevSecOps WordPress lab.
+
+I used Docker Compose to run all the services. The compose file includes: WordPress, MySQL, wp-cli and wp-scan. 
+WP-CLI was used to initially configure wordpress. WPScan runs only for "CI" profile and it checks the site for security problems.
+
+The first time I ran the scanner, it found a few security issues. The default Akismet plugin had a known XSS bug. The server was also leaking information. 
+It showed the exact Apache and PHP versions in the network headers. Also, the default readme and license files were public, which tells everyone the exact WordPress version. 
+Lastly, some dangerous files like xmlrpc.php and wp-cron.php were left open.
+
+To fix all this, I extended the base wordpress image and I deleted the whole Akismet plugin folder (as it was not used) and removes the readme text files. 
+I also wrote two custom configuration files for Apache and PHP.  These new configs hide the server versions and block outside access to the dangerous files.
+
+I chose to use Docker because it packages the application so it runs exactly the same on any computer. I used GitHub Actions for the pipeline because it is built into GitHub and automates my tasks easily.
+
+The last part of my project is the automated pipeline. When I push code to the master branch, GitHub Actions builds the project and starts the scanner. 
+WPScan checks the website and generates a security report. The pipeline saves this report as an artifact so I can download and read it later. After the report is saved, 
+the pipeline continues to the final steps. It automatically pushes the new Docker image to Docker Hub and the GitHub Container Registry. This makes my whole workflow fast and automatic.

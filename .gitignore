@@ -1,6 +1,7 @@
 *
 !compose.yaml
 !.gitignore
+!lab-report.txt
 
 !.github/
 !.github/workflows/
@@ -9,3 +10,6 @@
 !wordpress/
 wordpress/*
 !wordpress/*
+
+!scans/
+!scans/*.txt
