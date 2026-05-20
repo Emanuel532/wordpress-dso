@@ -6,6 +6,18 @@ services:
       dockerfile_inline: |
         FROM wordpress:${WORDPRESS_TAG:-latest}
         COPY --link wordpress/custom-routing.php /usr/src/wordpress/custom-routing.php
+        # remove unused plugins.
+        RUN rm -rf /usr/src/wordpress/wp-content/plugins/akismet
+        # prevent version fingerprinting by
+        RUN rm -f /usr/src/wordpress/readme.html /usr/src/wordpress/license.txt
+        
+        # block XML-RPC & hide Apache server info
+        COPY --link wordpress/security.conf /etc/apache2/conf-available/security.conf
+        RUN a2enmod headers && a2enconf security
+        
+        # hide PHP version headers
+        COPY --link wordpress/security.ini /usr/local/etc/php/conf.d/security.ini
+        
     image: emanu11/wordpress-dso:latest
     restart: always
     ports:
@@ -15,7 +27,9 @@ services:
       WORDPRESS_DB_USER: admin
       WORDPRESS_DB_PASSWORD: ${DB_PASS:?}
       WORDPRESS_DB_NAME: wpdb
-      WORDPRESS_CONFIG_EXTRA: "require_once '/var/www/html/custom-routing.php';"
+      WORDPRESS_CONFIG_EXTRA: |
+        require_once '/var/www/html/custom-routing.php';
+        define('DISABLE_WP_CRON', true);
     depends_on:
       mysql:
         condition: service_healthy
@@ -45,6 +59,9 @@ services:
       - wordpress:/var/www/html
     command: >
       sh -c '
+      until [ -f /var/www/html/wp-settings.php ]; do
+        sleep 2
+      done;
       wp core is-installed || wp core install \
         --url="http://localhost:8080" \
         --title="Dummy WP" \
@@ -87,7 +104,7 @@ services:
       wpscan --url="http://wordpress" \
             --enumerate u,vp,vt \
             --clear-cache \
-            --api-token ${WPSCAN_TOKEN:?}
+            --api-token ${WPSCAN_TOKEN:?} \
             --output /reports/wpscan_report.txt
   wpscan-waiter:
     image: wordpress:cli
